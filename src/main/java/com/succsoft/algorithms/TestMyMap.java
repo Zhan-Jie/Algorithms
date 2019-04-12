@@ -1,34 +1,61 @@
 package com.succsoft.algorithms;
 
+import java.util.Random;
+
 /**
  * @author zj
  *
  * 2017年7月18日
  */
 public class TestMyMap {
-  public static void main(String[] args) {
-    MyMap<String, String> map = new MyMap<>();
-    map.put("one", "1");
-    map.put("two", "2");
-    map.put("three", "3");
-    map.put("four", "4");
-    map.put("five", "5");
-    map.put("six", "6");
-    map.put("seven", "7");
-    map.put("eight", "8");
-    map.put("nine", "9");
-    map.put("zero", "0");
-    System.out.println("key4:" + map.get("four"));
-    System.out.println("key3:" + map.get("three"));
-    System.out.println("key2:" + map.get("two"));
-    System.out.println("key1:" + map.get("one"));
-    System.out.println("key0:" + map.get("zero"));
-    System.out.println("key5:" + map.get("five"));
-    System.out.println("key6:" + map.get("six"));
-    System.out.println("key7:" + map.get("seven"));
-    System.out.println("key8:" + map.get("eight"));
-    System.out.println("key9:" + map.get("nine"));
-    System.out.println("capacity:" + map.capacity());
-    System.out.println("size:" + map.size());
-  }
+    public static void main(String[] args) {
+        MyMap<String, String> map = new MyMap<>();
+        map.put("316d", "1");
+        map.put("e9bc", "2");
+        map.put("85d0", "3");
+        map.put("4d79", "4");
+        map.put("9909", "5");
+        map.put("b1c2", "6");
+        map.put("bfc4", "7");
+        System.out.println("1 -> " + map.get("316d"));
+        System.out.println("2 -> " + map.get("e9bc"));
+        System.out.println("3 -> " + map.get("85d0"));
+        System.out.println("4 -> " + map.get("4d79"));
+        System.out.println("5 -> " + map.get("9909"));
+        System.out.println("6 -> " + map.get("b1c2"));
+        System.out.println("7 -> " + map.get("bfc4"));
+        System.out.println("capacity:" + map.capacity());
+        System.out.println("size:" + map.size());
+    }
+
+    /**
+     * 找出会在HashMap的表格中产生冲突的字符串
+     */
+    private static void findString() {
+        String s = randomStr();
+        System.out.println(s);
+        final int index = index(s);
+        for (int i = 0; i < 6;) {
+            s = randomStr();
+            if (index == index(s)) {
+                System.out.println(s);
+                ++i;
+            }
+        }
+    }
+
+    private static int index(String str) {
+        int h = str.hashCode();
+        return ((h >>> 16) ^ h) & 7;
+    }
+
+    private static String randomStr() {
+        Random r = new Random();
+        char[] dict = "abcdef0123456789".toCharArray();
+        char[] str = new char[4];
+        for (int i = 0; i < str.length; ++i) {
+            str[i] = dict[r.nextInt(dict.length)];
+        }
+        return new String(str);
+    }
 }

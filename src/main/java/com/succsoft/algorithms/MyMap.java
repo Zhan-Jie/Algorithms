@@ -69,7 +69,13 @@ public class MyMap<K, V> implements Map<K, V> {
             if (e == null) {
                 continue;
             }
-            newEntries[e.hash & (capacity - 1)] = e;
+            while (e != null) {
+                MyEntry<K, V> current = e;
+                e = e.next;
+                int newIndex = current.hash & (capacity - 1);
+                current.next = newEntries[newIndex];
+                newEntries[newIndex] = current;
+            }
         }
 
         entries = newEntries;
